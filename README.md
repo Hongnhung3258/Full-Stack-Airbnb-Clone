@@ -1,2 +1,2 @@
-# Full-Stack-Airbnb-Clone
-Next.js 13 App Router: React, Tailwind, Prisma, MongoDB, NextAuth 2024
+# Real-Time Messenger Clone
+Next.js 13, React, Tailwind, Prisma, MongoDB, NextAuth, Pusher (2023)
