@@ -1,18 +1,30 @@
 "use client";
 
-import { User } from "@prisma/client";
-import UserBox from "./UserBox";
+import clsx from "clsx";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { MdOutlineGroupAdd } from "react-icons/md";
 
-interface UserListProps {
-    items: User[]
-};
+import useConversation from "@/app/hooks/useConversation";
+import { FullConversationType } from "@/app/types";
+import ConversationBox from "./ConversationBox";
 
-const UserList: React.FC<UserListProps> = ({
-    items
+interface ConversationListProps {
+    initialItems: FullConversationType[];
+}
+
+const ConversationList: React.FC<ConversationListProps> = ({
+    initialItems
 }) => {
+    const [items, setItems] = useState(initialItems);
+
+    const router = useRouter();
+
+    const { conversationId, isOpen } = useConversation();
+
     return (
         <aside
-            className="
+            className={clsx(`
                 fixed
                 inset-y-0
                 pb-20
@@ -23,26 +35,39 @@ const UserList: React.FC<UserListProps> = ({
                 overflow-y-auto
                 border-r
                 border-gray-200
-                block
-                w-full
-                left-0
-            "
+                
+            `,
+            isOpen ? 'hidden' : 'block w-full left-0'
+        )}
         >
-            <div className="px-5"> 
-                <div className="flex-col">
+            <div className="px-5">
+                <div className="flex justify-between mb-4 pt-4">
                     <div className="
                         text-2xl
                         font-bold
                         text-neutral-800
-                        py-4
                     ">
-                        People
+                        Messages
+                    </div>
+                    <div
+                        className="
+                            rounded-full
+                            p-2
+                            bg-gray-100
+                            text-gray-600
+                            cursor-pointer
+                            hover:opacity-75
+                            transition
+                        "
+                    >
+                        <MdOutlineGroupAdd size={20} />
                     </div>
                 </div>
                 {items.map((item) => (
-                    <UserBox
+                    <ConversationBox
                         key={item.id}
                         data={item}
+                        selected={conversationId === item.id}
                     />
                 ))}
             </div>
@@ -50,4 +75,4 @@ const UserList: React.FC<UserListProps> = ({
     );
 }
 
-export default UserList;
+export default ConversationList;
