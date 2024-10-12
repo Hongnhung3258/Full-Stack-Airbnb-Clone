@@ -3,7 +3,7 @@ import getCurrentUser from "./getCurrenUser";
 import ConversationId from "../conversations/[conversationId]/page";
 
 const getConversationById = async (
-    ConversationId: string
+    conversationId: string
 ) => {
     try {
         const currentUser = await getCurrentUser();
@@ -14,7 +14,7 @@ const getConversationById = async (
 
         const conversation = await prisma.conversation.findUnique({
             where: {
-                id: ConversationId
+                id: conversationId
             },
             include: {
                 users: true
