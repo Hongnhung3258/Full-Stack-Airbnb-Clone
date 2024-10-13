@@ -20,7 +20,7 @@ const ConversationId = async ({ params }: { params: IParams}) => {
                     <EmptyState />
                 </div>
             </div>
-        )
+        );
     }
 
     return (
